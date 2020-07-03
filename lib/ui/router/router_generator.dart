@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_ta_ke_7/core/models/produk_model.dart';
+import 'package:project_ta_ke_7/ui/screens/auth/login_screen.dart';
+import 'package:project_ta_ke_7/ui/screens/auth/register_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/barang_keluar/barang_keluar_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/barang_keluar/choose_produk_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/barang_keluar/create_barang_keluar_screen.dart';
@@ -13,6 +15,7 @@ import 'package:project_ta_ke_7/ui/screens/produk/create_produk_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/produk/edit_produk_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/produk/produk_detail.dart';
 import 'package:project_ta_ke_7/ui/screens/produk/produk_screen.dart';
+import 'package:project_ta_ke_7/ui/screens/splash/splash_screen.dart';
 
 
 class RouterGenerator {
@@ -38,12 +41,26 @@ class RouterGenerator {
   static const routeBarangMasuk = "/barang_masuk";
   static const routeCreateBarangMasuk = "/barang_masuk/create";
 
+  static const routeLogin = "/login";
+  static const routeRegister = "/register";
+
+  static const routeSplash = "/splashscreen";
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
     switch(settings.name) {
       case routeHome:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+        break;
+      case routeSplash:
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+        break;
+      case routeLogin:
+        return MaterialPageRoute(builder: (_) => LoginScreen());
+        break;
+      case routeRegister:
+        return MaterialPageRoute(builder: (_) => RegisterScreen());
         break;
       case routeProduk:
         return MaterialPageRoute(builder: (_) => ProdukScreen());

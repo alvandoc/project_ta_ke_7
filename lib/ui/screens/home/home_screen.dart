@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project_ta_ke_7/core/models/auth_model.dart';
+import 'package:project_ta_ke_7/core/viewmodels/auth/auth_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_masuk/barang_masuk_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
@@ -23,6 +25,16 @@ class HomeScreen extends StatelessWidget {
           "My Inventory",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
         ),
+        actions: <Widget>[
+          Consumer<AuthProvider>(
+            builder: (context, authProv, _) {
+              return IconButton(
+                icon: Icon(Icons.settings_power, color: Colors.white),
+                onPressed: () => authProv.logout(context),
+              );
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: HomeBody()
@@ -63,7 +75,7 @@ class HomeBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 70),
+        SizedBox(height: 45),
         _titleHeader(),
         SizedBox(height: 5),
         _headerStock(),
@@ -79,9 +91,24 @@ class HomeBody extends StatelessWidget {
   Widget _titleHeader() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Text(
-        "Perhitungan Stok Barang",
-        style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Consumer<AuthProvider>(
+            builder: (context, authProv, _) {
+              return Text(
+                "Halo, ${authProv.user.name}",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+              );
+            },
+          ),
+          Text(
+            "Perhitungan Stok Barang",
+            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700),
+          ),
+        ],
       ),
     );
   }

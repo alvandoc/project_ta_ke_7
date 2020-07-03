@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:project_ta_ke_7/core/viewmodels/auth/auth_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_masuk/barang_masuk_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/category/category_provider.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => BarangMasukProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
         )
       ],
       child: MaterialApp(
@@ -50,7 +54,7 @@ class MyApp extends StatelessWidget {
             },
           ),
         ),
-        initialRoute: RouterGenerator.routeHome,
+        initialRoute: RouterGenerator.routeSplash,
         onGenerateRoute: RouterGenerator.generateRoute,
       ),
     );

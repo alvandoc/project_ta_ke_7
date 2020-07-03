@@ -15,7 +15,7 @@ class BarangKeluarProvider extends ChangeNotifier {
   List<BarangKeluarModel> _barangKeluarList;
   List<BarangKeluarModel> get barangKeluarList => _barangKeluarList;
 
-  int _totalQuantity;
+  int _totalQuantity = 0;
   int get totalQuantity => _totalQuantity;
 
   //* Services barang keluar

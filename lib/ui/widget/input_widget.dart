@@ -8,6 +8,7 @@ class InputWidget extends StatefulWidget {
   TextEditingController controller;
   bool readOnly;
   Function onClick;
+  int maxLine;
   
   InputWidget({
     @required this.hintText,
@@ -16,7 +17,8 @@ class InputWidget extends StatefulWidget {
     this.secureText = false,
     @required this.controller,
     this.readOnly = false,
-    this.onClick
+    this.onClick,
+    this.maxLine
   });
 
   @override
@@ -40,7 +42,7 @@ class _InputWidgetState extends State<InputWidget> {
           textInputAction: widget.action,
           keyboardType: widget.type,
           obscureText: widget.secureText,
-          maxLines: null,
+          maxLines: widget.maxLine,
           decoration: InputDecoration(
             hintText: widget.hintText,
             border: InputBorder.none
