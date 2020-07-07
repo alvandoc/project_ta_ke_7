@@ -15,7 +15,7 @@ class BarangKeluarProvider extends ChangeNotifier {
   List<BarangKeluarModel> _barangKeluarList;
   List<BarangKeluarModel> get barangKeluarList => _barangKeluarList;
 
-  int _totalQuantity = 0;
+  int _totalQuantity;
   int get totalQuantity => _totalQuantity;
 
   //* Services barang keluar
@@ -130,6 +130,11 @@ class BarangKeluarProvider extends ChangeNotifier {
 
   void removeQuantity(int quantity) {
     _totalQuantity -= quantity;
+    notifyListeners();
+  }
+
+  void clearQuantity() {
+    _totalQuantity = null;
     notifyListeners();
   }
 

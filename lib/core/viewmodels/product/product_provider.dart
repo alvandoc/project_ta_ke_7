@@ -118,11 +118,18 @@ class ProductProvider extends ChangeNotifier {
       //* Close loading
       Navigator.pop(context);
 
-      //* Removing category from list
-      await _produkList.removeWhere((element) => element.id.toString() == id);
+      //* Reloading product
+      await clearProduct();
+
       //* Reload barang masuk and barang keluar list
-      await Provider.of<BarangMasukProvider>(context, listen: false).clearBarangMasuk();
-      await Provider.of<BarangKeluarProvider>(context, listen: false).clearBarangKeluar();
+      final barangMasukProv = await Provider.of<BarangMasukProvider>(context, listen: false);
+      final barangKeluarProv = await Provider.of<BarangKeluarProvider>(context, listen: false);
+      await barangMasukProv.clearBarangMasuk();
+      await barangKeluarProv.clearBarangKeluar();
+
+      //* Reload barang masuk & barang keluar quantity
+      await barangMasukProv.clearQuantity();
+      await barangKeluarProv.clearQuantity();
       
       //* If remove category success
       if (result) { 

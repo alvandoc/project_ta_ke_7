@@ -7,7 +7,7 @@ class DatabaseHelper{
   // Instanse database
   Database _database;
   // Nama database
-  String _dbName = "testing2553";
+  String _dbName = "datatest";
 
   // Membuat getter database
   Future<Database> get database async {
