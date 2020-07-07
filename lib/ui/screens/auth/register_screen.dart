@@ -143,8 +143,8 @@ class _RegisterBodyState extends State<RegisterBody> {
             InputWidget(
               controller: emailController,
               action: TextInputAction.done,
-              type: TextInputType.text,
-              hintText: "Enter your email address",
+              type: TextInputType.emailAddress,
+              hintText: "Enter your email address.",
             )
           ],
         );
