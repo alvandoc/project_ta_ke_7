@@ -150,7 +150,7 @@ class BarangMasukItem extends StatelessWidget {
                 type: MaterialType.transparency,
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () => barangProv.delete(barang.id.toString(), (barang.stock - barang.quantity) , context),
+                  onTap: () => barangProv.delete(barang.id.toString(), (barang.stock - barang.quantity), barang.produkId, context),
                   borderRadius: BorderRadius.circular(30),
                   child: Icon(Icons.delete, color: Colors.red)
                 )

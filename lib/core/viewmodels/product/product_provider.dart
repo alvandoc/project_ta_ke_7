@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_ta_ke_7/core/models/category_model.dart';
 import 'package:project_ta_ke_7/core/models/produk_model.dart';
+import 'package:project_ta_ke_7/core/services/barang_keluar/barang_keluar_services.dart';
+import 'package:project_ta_ke_7/core/services/barang_masuk/barang_masuk_services.dart';
 import 'package:project_ta_ke_7/core/services/category/category_services.dart';
 import 'package:project_ta_ke_7/core/services/product/product_services.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
+import 'package:project_ta_ke_7/core/viewmodels/barang_masuk/barang_masuk_provider.dart';
 import 'package:project_ta_ke_7/ui/router/router_generator.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +22,8 @@ class ProductProvider extends ChangeNotifier {
 
   //* Services produk
   var produkService = new ProductServices();
+  var barangMasukService = new BarangMasukService();
+  var barangKeluarService = new BarangKeluarServices();
 
   //*-----------------
   //* Function Field
@@ -104,13 +109,20 @@ class ProductProvider extends ChangeNotifier {
       //* show loading
       DialogUtils.instance.showLoading(context, "Menghapus Produk");
       
+      //* Remove barang masuk and barang keluar by produk ID
+      await barangMasukService.deleteByProdukID(id);
+      await barangKeluarService.deleteByProdukID(id);
+      //* Remove produk
       var result = await produkService.delete(id);
       
       //* Close loading
       Navigator.pop(context);
 
       //* Removing category from list
-      _produkList.removeWhere((element) => element.id.toString() == id);
+      await _produkList.removeWhere((element) => element.id.toString() == id);
+      //* Reload barang masuk and barang keluar list
+      await Provider.of<BarangMasukProvider>(context, listen: false).clearBarangMasuk();
+      await Provider.of<BarangKeluarProvider>(context, listen: false).clearBarangKeluar();
       
       //* If remove category success
       if (result) { 

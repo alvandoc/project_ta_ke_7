@@ -79,7 +79,7 @@ class BarangMasukProvider extends ChangeNotifier {
   }
 
 
-  void delete(String id, int lastQuantity, BuildContext context) {
+  void delete(String id, int lastQuantity, int produkID, BuildContext context) {
     DialogUtils.instance.showOptions(context, 
       "Anda yakin ingin menghapus data?", Icons.warning, onClickYes: () async {
       
@@ -89,7 +89,7 @@ class BarangMasukProvider extends ChangeNotifier {
       //* show loading
       DialogUtils.instance.showLoading(context, "Menghapus Barang Masuk");
       
-      var result = await barangMasukService.delete(id, lastQuantity);
+      var result = await barangMasukService.delete(id, lastQuantity, produkID);
       
       //* Close loading
       Navigator.pop(context);

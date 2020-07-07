@@ -36,4 +36,10 @@ class BarangMasukDB {
     var result = await db.delete("barang_masuk", where: "id = ?", whereArgs: [id]);
     return result;
   }
+
+  Future deleteByProductID(String produkID) async {
+    Database db = await helper.database;
+    var result = await db.delete("barang_masuk", where: 'produk_id = ?', whereArgs: [produkID]);
+    return result;
+  }
 }

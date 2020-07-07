@@ -75,7 +75,7 @@ class BarangKeluarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(String id, int lastQuantity, BuildContext context) {
+  void delete(String id, int lastQuantity, int produkID, BuildContext context) {
     DialogUtils.instance.showOptions(context, 
       "Anda yakin ingin menghapus data?", Icons.warning, onClickYes: () async {
       
@@ -85,7 +85,7 @@ class BarangKeluarProvider extends ChangeNotifier {
       //* show loading
       DialogUtils.instance.showLoading(context, "Menghapus Barang Keluar");
       
-      var result = await barangKeluarServices.delete(id, lastQuantity);
+      var result = await barangKeluarServices.delete(id, lastQuantity, produkID);
       
       //* Close loading
       Navigator.pop(context);

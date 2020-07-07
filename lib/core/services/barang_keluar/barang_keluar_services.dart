@@ -12,7 +12,7 @@ class BarangKeluarServices {
 
   Future<bool> create(BarangKeluarRequest barangKeluar, int lastStock) async {
     var _result = await barangKeluarDB.create(barangKeluar);
-    await produkDB.updateProdukStok(lastStock);
+    await produkDB.updateProdukStok(barangKeluar.produkId, lastStock);
 
     return _result != null ? true : false;
   }
@@ -33,12 +33,16 @@ class BarangKeluarServices {
     return _result[0]["total"];
   }
 
-  Future<bool> delete(String id, int lastStock) async {
+  Future<bool> delete(String id, int lastStock, int produkID) async {
     var _result = await barangKeluarDB.delete(id);
-    await produkDB.updateProdukStok(lastStock);
+    await produkDB.updateProdukStok(produkID, lastStock);
 
     return _result != null ? true : false;
   }
 
+  Future<bool> deleteByProdukID(String produkID) async {
+    var _result = await barangKeluarDB.deleteByProductID(produkID);
+    return _result != null ? true : false;
+  }
 
 }

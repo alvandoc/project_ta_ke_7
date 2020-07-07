@@ -32,6 +32,7 @@ dependencies:
   flutter_svg: ^0.17.0
   animations: ^1.0.0+5
   crypto: ^2.1.4
+  flutter_luban: any
 
 dev_dependencies:
   flutter_test:

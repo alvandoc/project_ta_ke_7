@@ -33,10 +33,10 @@ class ProductDB {
     return result;
   }
 
-  Future updateProdukStok(int quantity) async {
+  Future updateProdukStok(int produkID, int quantity) async {
     Database db = await helper.database;
 
-    var result = await db.rawUpdate('''update produk set stock = ? ''', [quantity]);
+    var result = await db.rawUpdate('''update produk set stock = ? WHERE id = ? ''', [quantity, produkID]);
     return result;
   }
 

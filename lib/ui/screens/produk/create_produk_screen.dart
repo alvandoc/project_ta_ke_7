@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_ta_ke_7/core/models/category_model.dart';
 import 'package:project_ta_ke_7/core/models/produk_model.dart';
+import 'package:project_ta_ke_7/core/utils/compress_utils.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
 import 'package:project_ta_ke_7/core/viewmodels/product/product_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
@@ -53,6 +54,10 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
   void pickImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
+      DialogUtils.instance.showLoading(context, "Mengompress gambar");
+      image = await CompressUtils.compressing(image);
+
+      Navigator.pop(context);
       setState(() {
         imageProduk = image;
       });
