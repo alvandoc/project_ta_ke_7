@@ -51,8 +51,8 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
   CategoryModel selectedCategory;
 
   File imageProduk;
-  void pickImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  void pickImage(ImageSource source) async {
+    var image = await ImagePicker.pickImage(source: source);
     if (image != null) {
       DialogUtils.instance.showLoading(context, "Mengompress gambar");
       image = await CompressUtils.compressing(image);
@@ -255,7 +255,19 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
             SizedBox(height: 10),
             Center(
               child: imageProduk == null 
-                ? _imageWidget()
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _imageWidget(
+                      ImageSource.gallery,
+                      Icons.image
+                    ),
+                    _imageWidget(
+                      ImageSource.camera,
+                      Icons.camera_alt
+                    ),
+                  ],
+                )
                 : _imageFillWidget()
             )
           ],
@@ -268,7 +280,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
     return Builder(
       builder: (context) {
         return InkWell(
-          onTap: () => pickImage(),
+          onTap: () => pickImage(ImageSource.gallery),
           borderRadius: BorderRadius.circular(60),
           child: Container(
             width: 100,
@@ -288,7 +300,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
     );
   }
 
-  Widget _imageWidget() {
+  Widget _imageWidget(ImageSource source, IconData icon) {
     return Builder(
       builder: (context) {
         return Container(
@@ -307,7 +319,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
                   type: MaterialType.transparency,
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () => pickImage(),
+                    onTap: () => pickImage(source),
                     borderRadius: BorderRadius.circular(60),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
@@ -338,13 +350,13 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
                     type: MaterialType.transparency,
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => pickImage(),
+                      onTap: () => pickImage(source),
                       borderRadius: BorderRadius.circular(60),
-                      child: Icon(Icons.add, color: Colors.green)
+                      child: Icon(icon, color: Colors.green, size: 20,)
                     )
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );
